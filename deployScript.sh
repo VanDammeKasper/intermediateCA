@@ -34,7 +34,7 @@ cp $cert_domain.key $cert_privateKey_destination
 
 sleep 1
 
-printf -- 'making zimbra ownder of /opt/zimbra/ssl/zimbra/commercial/ file'
+printf -- 'making zimbra ownder of /opt/zimbra/ssl/zimbra/commercial/ file\n'
 chown zimbra:zimbra $cert_privateKey_destination
 
 sleep 3
@@ -42,3 +42,9 @@ sleep 3
 
 printf -- 'deploying certificates\n'
 sudo -u zimbra /opt/zimbra/bin/zmcertmgr deploycrt comm $cert_domain.cer fullchain.cer
+
+sleep 10
+
+
+printf -- 'zimbra restarten'
+sudo -u zimbra zmcontrol restart
