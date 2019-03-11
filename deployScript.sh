@@ -10,33 +10,32 @@ cert_domain="mail.annabeltextiles.com"
 printf -- 'appending fullchain\n'
 git clone https://github.com/vandammekasper/intermediateCA/
 
-sleep 5
+sleep 4
 
 cat fullchain.cer intermediateCA/intermediate.cer > temp.cer
 
-sleep 3
+sleep 2
 rm fullchain.cer
 
-sleep 3
+sleep 2
 mv temp.cer fullchain.cer
 
-
+sleep 1
 
 # move privatekey
 
 printf -- 'removing old private key\n'
 rm $cert_privateKey_destination
 
+sleep 1
+
 printf -- 'copying private key\n'
 cp $cert_domain.key $cert_privateKey_destination
 
+sleep 1
+
+printf -- 'making zimbra ownder of /opt/zimbra/ssl/zimbra/commercial/ file'
 chown zimbra:zimbra $cert_privateKey_destination
-
-# verify certs
-sleep 3
-
-printf -- 'verifying certificates \n'
-sudo -u zimbra /opt/zimbra/bin/zmcertmgr verifycrt comm $cert_domain.key $cert_privateKey_destination fullchain.cer
 
 sleep 3
 # deploy certs
